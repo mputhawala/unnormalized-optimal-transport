@@ -1,5 +1,7 @@
-# unnormalized-optimal-transport-
-A repository containing code for computing theUunnormalized Wasserstein-2 (UW-2) distance in one and two dimensions.
+# Unnormalized Optimal Transport
+A repository containing code for computing the Unnormalized Wasserstein-2 (UW-2) distance in one and two dimensions. This code is taken from:
+
+Gangbo, Wilfrid, et al. "Unnormalized Optimal Transport." arXiv preprint arXiv:1902.03367 (2019).
 
 The code is written in C++, with Mex wrappers so that the code can be called with Matlab. The files contents are as follows:
 
@@ -13,7 +15,7 @@ The code is written in C++, with Mex wrappers so that the code can be called wit
   
   FunctionUtilities.cpp/h - Additional miscellaneous code.
   
-  double_array_Nd.cpp/h - Data structues used to abstract a numerical grid in N dimensions. You can have the code use your favorite numerical grid class (provided that the interface is the same) by changing the using statement at the top of UnnormalizedOTSolver1D.h/UnnormalizedOTSolver.h.
+  double_array_Nd.cpp/h - Data structures used to abstract a numerical grid in N dimensions. You can have the code use your favorite numerical grid class (provided that the interface is the same) by changing the using statement at the top of UnnormalizedOTSolver1D.h/UnnormalizedOTSolver.h.
   
   mex_unbalanced_emd_code.m - Example code that you can use to mex the UW_2 2 dimensional code so that you can call it from Matlab.
   
