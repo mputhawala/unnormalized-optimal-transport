@@ -344,48 +344,48 @@ void CreateGaussianDensities(DoubleArray2D& rho0, DoubleArray2D& rho1) {
 void RunDoubleArray3DUnitTests() {
   // empty array construction
   DoubleArray3D array;
-  cout << "Empty Array: " << array << endl;
+  cout << "Empty Array: \n" << array << '\n';
 
   array.Resize(1, 1, 1);
-  cout << "1-1-1 Array: " << array << endl;
+  cout << "1-1-1 Array: \n" << array << '\n';
 
   array.Resize(2, 2, 2);
-  cout << "2-2-2 Array: " << array << endl;
+  cout << "2-2-2 Array: \n" << array << '\n';
 
-  cout << "array.GetIndex1Size() = " << array.GetIndex1Size() << endl;
-  cout << "array.GetIndex2Size() = " << array.GetIndex2Size() << endl;
-  cout << "array.GetIndex3Size() = " << array.GetIndex3Size() << endl;
+  cout << "array.GetIndex1Size() = " << array.GetIndex1Size() << '\n';
+  cout << "array.GetIndex2Size() = " << array.GetIndex2Size() << '\n';
+  cout << "array.GetIndex3Size() = " << array.GetIndex3Size() << '\n';
 
 
   // Comumn major labeling
   InitDoubleArray(array);
-  cout << "2-2-2 Array after initialization: " << array << endl;
+  cout << "2-2-2 Array after initialization: \n" << array << '\n';
 
   // Arithmetic
   array *= 2;
-  cout << "Array after array *= 2: " << array << endl;
+  cout << "Array after array *= 2: \n" << array << '\n';
 
   array /= 2;
-  cout << "Array after array *= 2: " << array << endl;
+  cout << "Array after array /= 2: \n" << array << '\n';
 
-  cout << "Array Inf Norm = " << array.NormInf() << endl;
+  cout << "Array Inf Norm = " << array.NormInf() << '\n';
 
   DoubleArray3D array2(array);
-  cout << "Copy of Array: " << array2 << endl;
+  cout << "Copy of Array: \n" << array2 << '\n';
   array2 += array;
   array *= 2;
   array2 == array;
-  cout << "Array + Array == 2*Array:" << (array2 == array) << endl;
+  cout << "Array + Array == 2*Array:\n" << (array2 == array) << endl;
 }
 
 void Run2DSolverTest() {
-  size_t n_x = 35;
-  size_t n_y = 35;
-  size_t n_t = 15;
+  size_t n_x = 5;
+  size_t n_y = 5;
+  size_t n_t = 5;
   double tau_1 = 1e-4;
   double tau_2 = 1e-1;
   double alpha = 1.0;
-  int iters = 20000;
+  int iters = 2000;
   UnnormalizedOTSolver solver(n_t, n_x, n_y, tau_1, tau_2, alpha, true);
   //output solver before anything is done
   //cout << solver << endl;
@@ -434,6 +434,7 @@ void Run2DSolverTest() {
   cout << "Objective/Constaint Value" << endl;
   cout << solver.CheckObjectiveValue() << "\t" << solver.CheckConstraintViolation() << endl;
   cout << solver << endl;
+  cout << "Leaving Solver" << endl;
 }
 
 void Run1DSolverTests() {
@@ -533,9 +534,11 @@ void Run2DGaussianTests() {
 }
 
 void RunCalculusTests() {
-  const size_t n_x = 3;
-  const size_t n_y = 3;
-  UnnormalizedOTSolver solver(3, n_x, n_y);
+  const size_t n_x = 5;
+  const size_t n_y = 5;
+  // std::cout<< "Here 1!\n";
+  UnnormalizedOTSolver solver(5, n_x, n_y);
+  // std::cout<< "Here 2!\n";
   DoubleArray2D phi(n_x, n_y);
   for (size_t i = 0; i < n_x; ++i) {
     for (size_t j = 0; j < n_y; ++j) {
@@ -552,8 +555,8 @@ void RunCalculusTests() {
   cout << phi;
 
   DoubleArray2D grad_phi_x(n_x, n_y), grad_phi_y(n_x, n_y);
-  for (size_t i = 0; i < n_x; ++i) {
-    for (size_t j = 0; j < n_y; ++j) {
+  for (size_t i = 1; i < n_x; ++i) {
+    for (size_t j = 1; j < n_y; ++j) {
       grad_phi_x(i, j) = solver.DxPhi(1, i, j);
       grad_phi_y(i, j) = solver.DyPhi(1, i, j);
     }
@@ -564,8 +567,8 @@ void RunCalculusTests() {
   cout << grad_phi_y;
 
   DoubleArray2D div_grad_phi(n_x, n_y);
-  for (size_t i = 0; i < n_x; ++i) {
-    for (size_t j = 0; j < n_y; ++j) {
+  for (size_t i = 1; i < n_x; ++i) {
+    for (size_t j = 1; j < n_y; ++j) {
       solver.m_x(1, i, j) = grad_phi_x(i, j);
       solver.m_y(1, i, j) = grad_phi_y(i, j);
     }

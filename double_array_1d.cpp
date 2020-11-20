@@ -1,4 +1,5 @@
 #include "double_array_1d.h"
+#include <iostream>
 
 namespace Math270A {
   DoubleArray1D::DoubleArray1D() {
@@ -19,6 +20,7 @@ namespace Math270A {
   };
 
   DoubleArray1D::~DoubleArray1D() {
+    std::cout << "DoubleArray1D::~DoubleArray1D()" << std::endl;
     if (data_ptr != 0) delete[] data_ptr;
   }
 

@@ -81,6 +81,7 @@ namespace Math270A
   };
 
   DoubleArray3D::~DoubleArray3D() {
+    std::cout << "DoubleArray3D::~DoubleArray3D" << std::endl;
     if (data_ptr != nullptr) {
       delete[] data_ptr;
       data_ptr = nullptr;

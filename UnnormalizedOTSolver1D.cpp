@@ -433,6 +433,6 @@ UnnormalizedOTSolver1DDivergenceError::UnnormalizedOTSolver1DDivergenceError(con
   constraint_value = solver.current_constraint_violation;
 }
 
-const char* UnnormalizedOTSolver1DDivergenceError::what() const {
+const char* UnnormalizedOTSolver1DDivergenceError::what() const noexcept {
   return logic_error::what();
 }

@@ -4,9 +4,11 @@
 #include "double_array_1d.h"
 #include "double_array_2d.h"
 #include "double_array_3d.h"
-#include<cassert>
-#include<cmath>
-#include<vector>
+#include <cassert>
+#include <cmath>
+#include <vector>
+#include <climits>
+#include <limits>
 
 using DoubleArray1D = Math270A::DoubleArray1D;
 using DoubleArray2D = Math270A::DoubleArray2D;
@@ -15,6 +17,8 @@ using DoubleArray3D = Math270A::DoubleArray3D;
 class UnnormalizedOTSolver {
 public:
   UnnormalizedOTSolver(size_t nt, size_t nx, size_t ny, double tau_1 = 1e-2, double tau_2 = 1e-1, double alpha = 1.0, bool enforce_zero_f = false);
+
+  ~UnnormalizedOTSolver();
 
   void Solve();
 
@@ -135,7 +139,7 @@ public:
 class UnnormalizedOTSolverDivergenceError : public std::logic_error {
 public:
   UnnormalizedOTSolverDivergenceError(const UnnormalizedOTSolver& solver);
-  const char* what() const override;
+  const char* what() const noexcept override;
 
   unsigned int iteration;
   double objective_value;

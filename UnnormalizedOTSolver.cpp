@@ -6,8 +6,13 @@ UnnormalizedOTSolver::UnnormalizedOTSolver(size_t nt, size_t nx, size_t ny,
   : m_x(nt, nx + 1, ny), m_y(nt, nx, ny + 1), phi(nt, nx, ny), u(nt, nx, ny), f(nt)
   , m_x_tilde(nt, nx + 1, ny), m_y_tilde(nt, nx, ny + 1), u_tilde(nt, nx, ny), f_tilde(nt)
   , n_t(nt), n_x(nx), n_y(ny), tau_1(tau_1), tau_2(tau_2), alpha(alpha), enforce_zero_f(enforce_zero_f){
+  assert(n_t > 3);
   assert(GetDerivStencilDualityGapTime() < 1e-13*n_t);
   assert(GetGradDivStencilDualityGap() < 1e-13*n_x*n_y);
+}
+
+UnnormalizedOTSolver::~UnnormalizedOTSolver() {
+  std::cout << "UnnormalizedOTSolver::~UnnormalizedOTSolver()" << std::endl;
 }
 
 /*
@@ -232,6 +237,8 @@ double UnnormalizedOTSolver::GetDerivStencilDualityGapTime() const {
     integral_of_a_db -= a(k, 0, 0) * TimeDerivDual(b, k, 0, 0);
   }
   integral_of_a_db *= GetTCellWidth();
+  std::cout << "a = \n" << a << '\n';
+  std::cout << "b = \n" << b << '\n';
   return fabs(integral_of_a_db - integral_of_da_b);
 }
 
@@ -517,6 +524,6 @@ UnnormalizedOTSolverDivergenceError::UnnormalizedOTSolverDivergenceError(const U
   constraint_value = solver.current_constraint_violation;
 }
 
-const char* UnnormalizedOTSolverDivergenceError::what() const {
+const char* UnnormalizedOTSolverDivergenceError::what() const noexcept {
   return logic_error::what();
 }
